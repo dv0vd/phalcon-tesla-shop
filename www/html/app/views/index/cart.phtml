@@ -1,0 +1,74 @@
+
+<div class="container ">
+  <h1 class='h1 text-center text-uppercase font-weight-bold mt-5 mb-5' >Корзина</h1>
+  <div class="row">
+    <div class="col-lg-9">
+        <table class="table  text-center">
+          <thead>
+            <tr>
+              <th>Фото</th>
+              <th>Название</th>
+              <th>Цена</th>
+              <th>Количество</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+              use Phalcon\Tag;
+              $totalSum = 0;
+              if($this->session->product_id != NULL) {
+                foreach($products as $product) {
+                  foreach($this->session->product_id as $cart_product) {
+                    if($cart_product == $product->product_id) {
+                      $id = $product->product_id;
+                      $product_info = Products::find("product_id='$id'");
+                      $count = $this->session->product_count[$id];
+                      $totalSum += $product_info[0]->product_price * $count;
+                      echo "<tr><td class='align-middle'>";
+                      echo Tag::image(
+                        [
+                          $product->product_photo,
+                          'alt' => 'Product photo',
+                          'class' => 'employeePhotos_admin'
+                        ]
+                      );
+                      echo "</td>";
+                      echo "<td class='align-middle'>".$product->product_title."</td>";
+                      echo "<td class='align-middle'>".$product->product_price." рублей </td>";
+                      echo "<td class='align-middle'><input value='$count' class='form-control changeCartCount' id='changeCartCount$id' min='1' type='number'><br><button type='button' class='btn btn-danger removeFromCart' id='removeFromCart$id'>Удалить</button></td>";
+                      echo '</tr>';
+                    }
+                  }
+                }
+              }
+            ?>
+          </tbody>
+        </table>
+    </div>
+    <div class="col-md-3 bg-light text-center">
+      <div class="container-fluid mt-5" >
+        <div class="row">
+          <div class="col-lg">
+            <?php
+              if($this->session->product_id != NULL) {
+                echo "<h1 class='h1 font-weight-bold'>Итого:</h1>";
+                echo "<h2 class='h2 font-weight-bold text-success' id='cartPrice'>$totalSum рублей</h2>";
+              } else {
+                echo "<h2 class='h2 font-italic'>Корзина пуста...</h2>";
+              }
+             ?>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg">
+            <?php
+              if($this->session->product_id != NULL) {
+                echo "<button class='btn btn-warning mt-3 mb-3' type='button' id='placeOrder'>Оформить заказ</button>";
+              }
+             ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-lg text-center">
+      <?php
+        use Phalcon\Tag;
+        echo Tag::image(
+          [
+            $product[0]->product_photo,
+            'alt' => 'Product photo',
+            'class' => 'img-fluid'
+          ]
+        );
+       ?>
+    </div>
+    <div class="col-md text-center">
+      <?php
+        $title = $product[0]->product_title;
+        $price = $product[0]->product_price;
+        $id = $product[0]->product_id;
+        echo "<h1 class='h1 font-weight-bold m-5'>$title</h1>";
+        echo "<h2 class='h2'>$price рублей</h2>";
+        $isInCart = false;
+        if($this->session->has('product_id')) {
+          foreach($this->session->product_id as $product_id) {
+            if($product_id == $id) {
+              $isInCart = true;
+              break;
+            }
+          }
+          if($isInCart) {
+            echo "<button disabled class='btn m-5 addToCartBtn mybtn'  type='button' id='addToCartBtn$id' name='addToCartBtn'>В корзине</button>";
+          } else {
+            echo "<button class='btn m-5 addToCartBtn mybtn' type='button'  id='addToCartBtn$id' name='addToCartBtn'>Добавить в корзину</button>";
+          }
+        } else {
+          echo "<button class='btn m-5 addToCartBtn mybtn' type='button' id='addToCartBtn$id' name='addToCartBtn'>Добавить в корзину</button>";
+        }
+       ?>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-lg" style='background-color: white'>
+      <?php
+        echo $product[0]->product_description;
+       ?>
+    </div>
+  </div>
+</div>

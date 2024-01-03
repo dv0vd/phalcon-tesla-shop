@@ -1,0 +1,104 @@
+footer a{
+  text-decoration: none;
+  color: white;
+}
+
+footer a:hover, header a:hover{
+  color: black;
+}
+
+#footer-bottom{
+  padding: 25px;
+}
+
+
+header, footer{
+  background-color: #cc0001;
+  color: white;
+}
+
+header a{
+  color: #fff0ce;
+  font-size: 1.3em;
+}
+
+#brand{
+  font-family: Logo;
+}
+
+.employeePhotos{
+  border-radius: 125px;
+  width: 250px;
+  height: 250px
+}
+
+.employee_name{
+  border-bottom: solid #707d84 1px;
+  display: inline-block;
+  color: #000003;
+}
+
+.employee_post{
+  font-size: 1.1em;
+
+}
+
+.employeePhotos_admin{
+  border-radius: 50px;
+  width: 100px;
+  height: 100px
+}
+
+.indexCard{
+  transition:.5s
+}
+
+.indexCard:hover{
+  transform:scale(1.1);
+  transition:.5s
+}
+
+.indexCard a{
+  text-decoration: none;
+  color: black;
+}
+
+.nav-link-catalog:active{
+  background-color: #ddebf1;
+}
+
+.contactLogo{
+  width: 10%;
+}
+
+.contactText{
+  font-size: 1.5em;
+  font-weight: bold;
+  font-style: italic;
+}
+
+#v-pills-mirror-tab,#v-pills-order-tab,#v-pills-team-tab,#v-pills-faq-tab,#v-pills-settings-tab{
+  color: black;
+}
+
+.mybtn, .nav-link-catalog.active,#v-pills-mirror-tab.active,#v-pills-order-tab.active,#v-pills-team-tab.active,#v-pills-faq-tab.active,#v-pills-settings-tab.active{
+  background-color: #cc0001 !important;
+  color: white !important;
+}
+
+#toCatalog{
+  font-size: 1.5em;
+  text-decoration: none;
+  color: black;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: solid #cc0001 1px;
+  border-radius: 15px;
+}
+
+#toCatalog:hover{
+  background-color: #cc0001;
+  color: white;
+}

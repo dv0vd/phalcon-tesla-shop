@@ -1,0 +1,32 @@
+<div class="container-fluid mt-3">
+  <div class="row text-center">
+  <div class="col-lg-3">
+    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+      <a class="nav-link active" id="v-pills-mirror-tab" data-toggle="pill" href="#v-pills-mirror" role="tab" aria-controls="v-pills-mirror" aria-selected="true">Продукты</a>
+      <a class="nav-link" id="v-pills-order-tab" data-toggle="pill" href="#v-pills-order" role="tab" aria-controls="v-pills-order" aria-selected="true">Заказы</a>
+      <a class="nav-link" id="v-pills-team-tab" data-toggle="pill" href="#v-pills-team" role="tab" aria-controls="v-pills-team" aria-selected="false">Команда</a>
+      <a class="nav-link" id="v-pills-faq-tab" data-toggle="pill" href="#v-pills-faq" role="tab" aria-controls="v-pills-faq" aria-selected="false">FAQ</a>
+      <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Настройки</a>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div class="tab-content" id="v-pills-tabContent">
+      <div class="tab-pane fade show active" id="v-pills-mirror" role="tabpanel" aria-labelledby="v-pills-mirror-tab">
+        <?php echo $this->view->getPartial('partials/admin/mirrorTab') ?>
+      </div>
+      <div class="tab-pane fade" id="v-pills-order" role="tabpanel" aria-labelledby="v-pills-order-tab">
+        <?php echo $this->view->getPartial('partials/admin/orderTab') ?>
+      </div>
+      <div class="tab-pane fade" id="v-pills-team" role="tabpanel" aria-labelledby="v-pills-team-tab">
+        <?php echo $this->view->getPartial('partials/admin/teamTab') ?>
+      </div>
+      <div class="tab-pane fade" id="v-pills-faq" role="tabpanel" aria-labelledby="v-pills-faq-tab">
+        <?php echo $this->view->getPartial('partials/admin/faqTab') ?>
+      </div>
+      <div class="text-center tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+        <?php echo $this->view->getPartial('partials/admin/settingsTab') ?>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

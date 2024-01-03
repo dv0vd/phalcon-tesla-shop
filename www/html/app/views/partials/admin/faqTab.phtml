@@ -1,0 +1,228 @@
+<ul class="nav nav-tabs mb-2" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active " id="group-tab" data-toggle="tab" href="#group" role="tab" aria-controls="group" aria-selected="true">Группы</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="faq-tab" data-toggle="tab" href="#faq" role="tab" aria-controls="faq" aria-selected="false">Вопросы</a>
+  </li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane fade show active" id="group" role="tabpanel" aria-labelledby="group-tab">
+    <form id='addFaqGroupForm' action="/admin/addFaqGroup" method='post'>
+      <div class="row">
+        <div class="col-lg text-center">
+          <label for="faqGroupFormHeader">Заголовок</label>
+          <input type='text' required id='faqGroupFormHeader' name='faqGroupFormHeader' class="form-control">
+        </div>
+        <div class="col-lg">
+          <div class="row text-center">
+            <div class="col-md">
+              <label for="faqGroupFormHidden">Скрытый</label>
+            </div>
+          </div>
+          <div class="row text-center">
+            <div class="col-lg">
+              <input type="checkbox" name='faqGroupFormHidden' id='faqGroupFormHidden'>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid text-center">
+          <div class="row">
+            <div class="col-lg">
+              <button type="submit" class="btn btn-primary mt-2 text-center">Добавить</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <table class="table text-center">
+      <thead>
+        <tr>
+          <th>Название</th>
+          <th>Позиция</th>
+          <th>Скрытый</th>
+          <th>Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+          foreach($faqGroups as $faqGroup) {
+            $id = $faqGroup->faq_group_id;
+            echo "<tr>";
+            echo "<td>".$faqGroup->faq_group_title."</td>";
+            echo "<td>".$faqGroup->faq_group_position."</td>";
+            if($faqGroup->faq_group_hidden == 0) {
+              echo "<td><input type='checkbox' disabled></td>";
+            } else {
+              echo "<td><input type='checkbox' checked disabled></td>";
+            }
+            echo "<td><button class='btn btn btn-danger removeFaqGroupBtn' id='removeFaqGroupBtn$id'>Удалить</button>
+              <button class='btn btn btn-warning editFaqGroupBtn' id='editFaqGroupBtn$id' data-toggle='modal' data-target='#staticEditFaqGroupModal'>Редактировать</button></td>";
+            echo '</tr>';
+          }
+        ?>
+      </tbody>
+    </table>
+    <div class="modal fade" id="staticEditFaqGroupModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticModalFaqGroupEditForm" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Редактировать</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form id='editFaqGroupForm' action="/admin/editFaqGroup" method='post'>
+            <div class="modal-body" id='staticModalFaqGroupEditForm'>
+              <div class="row">
+                <div class="col-lg text-center">
+                  <label>#</label>
+                  <p id='editFaqFroupFormId'></p>
+                </div>
+                <div class="col-lg text-center">
+                  <label for="faqGroupFormHeader">Заголовок</label>
+                  <input type='text' required id='editFaqGroupFormHeader' name='editFaqGroupFormHeader' class="form-control">
+                </div>
+              </div>
+              <div class="row text-center">
+                <div class="col-lg">
+                  <label for="editFaqGroupFormHidden">Скрытый</label><br>
+                  <input type="checkbox" name='editFaqGroupFormHidden' id='editFaqGroupFormHidden'>
+                </div>
+                <div class="col-lg">
+                  <label for="editFaqGroupFormPosition">Позиция</label>
+                  <select class="form-control" name='editFaqGroupFormPosition' id="editFaqGroupFormPosition">
+                    <?php
+                      for ($i=0; $i<count($faqGroups); $i++) {
+                        echo "<option>$i</option>";
+                      }
+                     ?>
+                  </select>
+                </div>
+              </div>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="faq" role="tabpanel" aria-labelledby="faq-tab">
+    <form id='addFaqForm' action="/admin/addFaq" method='post'>
+      <div class="row">
+        <div class="col-lg text-center">
+          <label for="faqFormHeader">Заголовок</label>
+          <input type='text' required id='faqFormHeader' name='faqFormHeader' class="form-control">
+          <label for="faqFormAnswer">Ответ</label>
+          <textarea required class="form-control" id='faqFormAnswer' name="faqFormAnswer" rows="8"></textarea>
+          <label for="faqFormHidden">Скрытый</label>
+          <input class='mt-3' type="checkbox" name='faqFormHidden' id='faqFormHidden'><br>
+          <label for="addFaqFormGroup">Группа</label>
+          <select class="form-control" name='addFaqFormGroup' id="addFaqFormGroup">
+            <?php
+              foreach ($faqGroups as $faqGroup) {
+                $data = $faqGroup->faq_group_title;
+                echo "<option>$data</option>";
+              }
+             ?>
+          </select>
+        </div>
+        <div class="container-fluid text-center">
+          <div class="row">
+            <div class="col-lg">
+              <button type="submit" class="btn btn-primary mt-2 text-center">Добавить</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <table class="table text-center">
+      <thead>
+        <tr>
+          <th>Название</th>
+          <th>Группа</th>
+          <th>Позиция</th>
+          <th>Скрытый</th>
+          <th>Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+          foreach($faqs as $faq) {
+            $id = $faq->faq_group_id;
+            echo "<tr>";
+            echo "<td>".$faq->faq_title."</td>";
+            $group = FaqGroups::find("faq_group_id='$id'");
+            $id = $faq->faq_id;
+            echo "<td>".$group[0]->faq_group_title."</td>";
+            echo "<td>".$faq->faq_position."</td>";
+            if($faq->faq_hidden == 0) {
+              echo "<td><input type='checkbox' disabled></td>";
+            } else {
+              echo "<td><input type='checkbox' checked disabled></td>";
+            }
+            echo "<td><button class='btn btn btn-danger removeFaqBtn' id='removeFaqBtn$id'>Удалить</button>
+              <button class='btn btn btn-warning editFaqBtn' id='editFaqBtn$id' data-toggle='modal' data-target='#staticEditFaqModal'>Редактировать</button></td>";
+            echo '</tr>';
+          }
+        ?>
+      </tbody>
+    </table>
+    <div class="modal fade" id="staticEditFaqModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticModalFaqEditForm" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Редактировать</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form id='editFaqForm' action="/admin/editFaq" method='post'>
+            <div class="modal-body" id='staticModalFaqEditForm'>
+              <div class="row">
+                <div class="col-lg text-center">
+                  <label>#</label>
+                  <p id='editFaqFormId'></p>
+                </div>
+                <div class="col-lg text-center">
+                  <label for="editFaqFormHeader">Заголовок</label>
+                  <input type='text' required id='editFaqFormHeader' name='editFaqFormHeader' class="form-control">
+                </div>
+              </div>
+              <div class="row text-center">
+                <div class="col-lg">
+                  <label for="editFaqFormHidden">Скрытый</label><br>
+                  <input type="checkbox" name='editFaqFormHidden' id='editFaqFormHidden'>
+                </div>
+                <div class="col-lg">
+                  <label for="editFaqFormPosition">Позиция</label>
+                  <select class="form-control" name='editFaqFormPosition' id="editFaqFormPosition">
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg text-center">
+                  <label for="editFaqFormGroup">Группа</label>
+                  <select class="form-control" name='editFaqFormGroup' id="editFaqFormGroup">
+                    <?php
+                      foreach ($faqGroups as $faqGroup) {
+                        echo "<option>$faqGroup->faq_group_title</option>";
+                      }
+                    ?>
+                  </select>
+                </div>
+              </div>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

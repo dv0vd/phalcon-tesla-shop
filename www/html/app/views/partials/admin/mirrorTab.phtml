@@ -1,0 +1,133 @@
+<div class="container-fluid">
+  <div class="row mt-5">
+    <form id='addMirrorForm' action="/admin/addMirror" method='post'  enctype="multipart/form-data">
+      <div class="row">
+        <div class="col-lg text-center">
+          <label for="mirrorFormHeader">Заголовок</label>
+          <input type='text' required id='mirrorFormHeader' name='mirrorFormHeader' class="form-control">
+        </div>
+        <div class="col-lg">
+          <label for="mirrorFormPrice">Цена</label>
+          <input type="number" name='mirrorFormPrice' id='mirrorFormPrice' min='0' value='0'>
+        </div>
+        <div class="col-lg text-center">
+          <label for="mirrorFormHeader">Главное фото</label>
+          <input class='mt-3' required type="file" name='mirrorFormPhoto' id='mirrorFormPhoto' accept="image/*"><br>
+        </div>
+        <div class="col-lg text-center">
+          <label for="mirrorFormHeader">Тип</label>
+          <select id='mirrorFormType' name='mirrorFormType'>
+            <option>Автомобиль</option>
+            <option>Аксессуар</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg">
+          <textarea name="mirrorDescription" id='mirrorDescription'></textarea>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="col-lg">
+          <button type="submit" class="btn btn-primary mt-2 text-center">Добавить</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="row">
+    <table class="table text-center">
+      <thead>
+        <tr>
+          <th>Название</th>
+          <th>Тип</th>
+          <th>Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+          foreach($products as $product) {
+            $id = $product->product_id;
+            echo "<tr>";
+            echo "<td>".$product->product_title."</td>";
+            if($product->product_type == 0) {
+              echo "<td>Автомобиль</td>";
+            } else {
+              echo "<td>Аксессуар</td>";
+            }
+            echo "<td><button class='btn btn btn-danger removeMirrorBtn' id='removeMirrorBtn$id'>Удалить</button>
+              <button class='btn btn btn-warning editMirrorBtn' id='editMirrorBtn$id' data-toggle='modal' data-target='#staticEditMirrorModal'>Редактировать</button></td>";
+            echo '</tr>';
+          }
+        ?>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal fade" id="staticEditMirrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticEditMirrorModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Редактировать</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id='editMirrorForm' action="/admin/editProduct" method='post' enctype="multipart/form-data">
+          <input type='text' hidden name='editMirrorFormId' id='editMirrorFormId'>
+          <div class="modal-body" id='staticModalMirrorEditForm'>
+            <div class="row">
+              <div class="col-lg text-center">
+                <label for="editMirrorFormHeader">Заголовок</label>
+                <input type='text' required id='editMirrorFormHeader' name='editMirrorFormHeader' class="form-control">
+              </div>
+            </div>
+            <div class="row text-center">
+              <div class="col-lg">
+                <label for="editMirrorFormPrice">Цена</label><br>
+                <input type="number" min='0' name='editMirrorFormPrice' id='editMirrorFormPrice'>
+              </div>
+              <div class="col-lg">
+                <label for="editMirrorFormType">Тип</label>
+                <select class="form-control" name='editMirrorFormType' id="editMirrorFormType">
+                  <option>Автомобиль</option>
+                  <option>Аксессуар</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-lg text-center">
+              <!-- <div class="col-lg text-center" id='formEmployeeImage'> -->
+                <p>Главное фото</p>
+                <div id="oldProductPhoto">
+                </div>
+              </div>
+              <div class="col-lg text-center border border-primary">
+                <label for="editProductFormNewPhoto">Новое фото</label><br>
+                <input class='mt-3' type="file" name='editProductFormNewPhoto' id='editProductFormNewPhoto' accept="image/*"><br>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-lg text-center">
+                <p>Описание</p>
+                <textarea name="editmirrorDescription" id='editmirrorDescription'></textarea>
+              </div>
+            </div>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+          <button type="submit" class="btn btn-primary">Сохранить</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+  <script type="text/javascript">
+    CKEDITOR.replace( 'editmirrorDescription', {
+      filebrowserUploadUrl: "/admin/uploadProductImg",
+      filebrowserUploadMethod: 'form'
+    });
+    CKEDITOR.replace( 'mirrorDescription', {
+      filebrowserUploadUrl: "/admin/uploadProductImg",
+      filebrowserUploadMethod: 'form'
+    });
+</script>

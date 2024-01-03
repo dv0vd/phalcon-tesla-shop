@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg">
+      <h1 class='text-uppercase font-weight-bold mt-3 text-center' >Оформление заказа</h1>
+      <form id='processOrder' action="/index/processOrder" method='post'>
+        <div class="form-group">
+          <label for="orderEmail">Email</label>
+          <input required type="email" id='orderEmail' name='orderEmail' class="form-control">
+          <label for="orderName">Имя</label>
+          <input required type="text" id='orderName' name='orderName' class="form-control">
+          <label for="orderSurname">Фамилия</label>
+          <input required type="text" id='orderSurname' name='orderSurname' class="form-control">
+          <label for="orderAddress">Адрес</label>
+          <input required type="text" id='orderAddress' name='orderAddress' class="form-control">
+          <label for="orderComment">Комментарий</label>
+          <textarea rows='5' class="form-control" id="orderComment" name='orderComment'></textarea>
+        </div>
+        <div class="row">
+          <div class="col-md">
+            <h2>Товары </h2>
+            <table class="table  text-center">
+              <thead>
+                <tr>
+                  <th>Фото</th>
+                  <th>Название</th>
+                  <th>Цена</th>
+                  <th>Количество</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                  use Phalcon\Tag;
+                  $totalSum = 0;
+                  if($this->session->product_id != NULL) {
+                    foreach($products as $product) {
+                      foreach($this->session->product_id as $cart_product) {
+                        if($cart_product == $product->product_id) {
+                          $id = $product->product_id;
+                          $product_info = Products::find("product_id='$id'");
+                          $count = $this->session->product_count[$id];
+                          $totalSum += $product_info[0]->product_price * $count;
+                          echo "<tr><td class='align-middle'>";
+                          echo Tag::image(
+                            [
+                              $product->product_photo,
+                              'alt' => 'Product photo',
+                              'class' => 'employeePhotos_admin'
+                            ]
+                          );
+                          echo "</td>";
+                          echo "<td class='align-middle'>".$product->product_title."</td>";
+                          echo "<td class='align-middle'>".$product->product_price." рублей </td>";
+                          echo "<td class='align-middle'>$count</td>";
+                          echo '</tr>';
+                        }
+                      }
+                    }
+                  }
+                ?>
+              </tbody>
+            </table>
+            <div class="row text-center">
+              <div class="col-lg">
+                <button type="submit" class="btn btn-success mt-2 text-center">Далее</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input hidden required type="number" id='orderSum' value='<?php echo $totalSum?>' name='orderSum' class="form-control">
+      </form>
+    </div>
+  </div>
+</div>

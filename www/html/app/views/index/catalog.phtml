@@ -1,0 +1,73 @@
+<div class="container mt-5 text-center">
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="nav flex-column nav-pills font-weight-bold" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="text-dark nav-link active nav-link-catalog" id="v-pills-mirror-tab" data-toggle="pill" href="#v-pills-mirror" role="tab" aria-controls="v-pills-mirror" aria-selected="true">Автомобили</a>
+        <a class="text-dark nav-link nav-link-catalog" id="v-pills-module-tab" data-toggle="pill" href="#v-pills-module" role="tab" aria-controls="v-pills-module" aria-selected="false">Аксессуары</a>
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-mirror" role="tabpanel" aria-labelledby="v-pills-mirror-tab">
+          <div class="container">
+            <div class="row">
+              <?php
+                use Phalcon\Tag;
+                for($i=0; $i<count($mirrors); $i++) {
+                  $id = $mirrors[$i]->product_id;
+
+                  if($i % 2 == 0) {
+                    echo "<div class='container'><div class='row'>";
+                  }
+                    echo "<div class='col-md indexCard mb-5'><a target='_blank' href='/index/product/$id'>";
+                  echo Tag::image(
+                    [
+                      $mirrors[$i]->product_photo,
+                      'alt' => 'Product photo',
+                      'class' => 'img-fluid'
+                    ]
+                  );
+                  $title = $mirrors[$i]->product_title;
+                  $price = $mirrors[$i]->product_price;
+                  echo "<p class='font-weight-bold text-center text-uppercase mt-3'>$title</p>";
+                  echo "<small class='font-weight-bold text-center text-uppercase mt-3'><i>$price руб.</i></small>";
+                  echo "</a></div>";
+                  if(($i % 2 == 1) || ($i == count($mirrors) - 1)) {
+                    echo "</div></div>";
+                  }
+                }
+               ?>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="v-pills-module" role="tabpanel" aria-labelledby="v-pills-module-tab">
+          <?php
+            for($i=0; $i<count($modules); $i++) {
+              $id = $modules[$i]->product_id;
+
+              if($i % 2 == 0) {
+                echo "<div class='container'><div class='row'>";
+              }
+                echo "<div class='col-md indexCard mb-5'><a target='_blank' href='/index/product/$id'>";
+              echo Tag::image(
+                [
+                  $modules[$i]->product_photo,
+                  'alt' => 'Product photo',
+                  'class' => 'img-fluid'
+                ]
+              );
+              $title = $modules[$i]->product_title;
+              $price = $modules[$i]->product_price;
+              echo "<p class='font-weight-bold text-center text-uppercase mt-3'>$title</p>";
+              echo "<small class='font-weight-bold text-center text-uppercase mt-3'><i>$price руб.</i></small>";
+              echo "</a></div>";
+              if(($i % 2 == 1) || ($i == count($modules) - 1)) {
+                echo "</div></div>";
+              }
+            }
+           ?>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

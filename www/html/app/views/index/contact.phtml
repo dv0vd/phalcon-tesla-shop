@@ -1,0 +1,48 @@
+<h1 class='text-uppercase font-weight-bold mt-3 text-center' >Контакты</h1>
+<div class="container mt-3">
+  <div class="row text-center">
+    <div class="col-lg-4">
+      <img src="/img/phone-call.png" alt="Phone" class='contactLogo mb-2'>
+      <p class='contactText'>+7 (499) 877-43-38</p>
+      <img src="/img/message.png" alt="Phone" class='contactLogo mb-2'>
+      <p class='contactText'>belgorodteslaclub@mail.ru</p>
+    </div>
+    <div class="col-lg-4">
+      <iframe class='w-100' id='mapHeight' frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=36.570535898208625%2C50.59517033069944%2C36.57819628715516%2C50.599855802965294&amp;layer=mapnik&amp;marker=50.59751312513607%2C36.574366092681885" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/?mlat=50.59751&amp;mlon=36.57437#map=17/50.59751/36.57437" class='text-dark'>Посмотреть подробнее</a></small>
+    </div>
+    <div class="col-lg-4">
+      <p class='contactText'>г. Белгород ул. Гостёнская 14 офис 7</p>
+      <p class='contactText'>Пн-Пт 10.00 - 18.00</p>
+      <p class='contactText'>Перерыв: 13.30 - 14.00</p>
+    </div>
+  </div>
+  <h2 class='text-uppercase h2 font-weight-bold mt-3 text-center' >Напишите нам</h2>
+  <h5 class='text-uppercase h5 font-weight-bold font-italic  mt-3 text-center' >Ответим в ближайшее время</h5>
+  <div class="row">
+    <div class="col-lg">
+      <div id='contactFormMessage' class="alert text-center" role="alert"></div>
+      <form id='sendQuestionForm' action="/index/send" method='post'>
+        <div class="form-group">
+          <label for="contactFormEmail">Email</label>
+          <input required type="email" id='contactFormEmail' name='contactFormEmail' class="form-control">
+          <label for="contactFormName">Имя</label>
+          <input required type="text" id='contactFormName' name='contactFormName' class="form-control">
+          <label for="contactFormQuestion">Вопрос</label>
+          <textarea  required rows='5' class="form-control" id="contactFormQuestion" name='contactFormQuestion'></textarea>
+          <div class="container-fluid text-center">
+            <div class="row">
+              <div class="col">
+                <button type="submit" class="btn mt-2 text-center mybtn">Отправить</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div id='formStatus' class=' invisible spinner-border text-primary mt-2 mb-2' role='status'></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

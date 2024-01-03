@@ -1,0 +1,25 @@
+<?php
+  $this->assets->addCss('css/bootstrap.min.css');
+  $this->assets->addCss('css/style.css');
+  $headerCollection = $this->assets->collection('headerJs');
+  $footerCollection = $this->assets->collection('footerJs');
+  $headerCollection->addJs('ckeditor/ckeditor.js');
+  $footerCollection->addJs('js/jquery-3.5.1.min.js');
+  $footerCollection->addJs('js/bootstrap.min.js');
+  $footerCollection->addJs('js/main.js');
+ ?>
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8"/>
+    <title><?php echo $title ?></title>
+    <?php $this->assets->outputCss(); ?>
+  </head>
+  <body>
+    <?php $this->assets->outputJs('headerJs'); ?>
+    <?php echo $this->view->getPartial('partials/header') ?>
+    <?php echo $this->view->getContent() ?>
+    <?php echo $this->view->getPartial('partials/footer') ?>
+    <?php $this->assets->outputJs('footerJs'); ?>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<div class="container text-center">
+  <div class="row">
+    <div class="col-lg">
+      <h1 class='text-uppercase font-weight-bold mt-5 mb-5' >Наша команда</h1>
+      <?php
+        use Phalcon\Tag;
+        foreach($departments as $department) {
+          echo "<h2 class='mt-5 mb-5 text-uppercase font-weight-bold'>".$department->department_name."</h2>";
+          $department_id = $department->department_id;
+          $employees = Employees::find([
+            'conditions' => "department_id=$department_id AND employee_hidden='0'",
+            'order' => 'employee_position ASC'
+          ]);
+          for($i=0; $i<count($employees); $i++) {
+            if($i % 2 == 0) {
+              echo "<div class='container w-75'><div class='row '>";
+            }
+            echo "<div class='col-md'>";
+              echo Tag::image(
+                [
+                  $employees[$i]->employee_photo_location,
+                  'alt' => 'Employee photo',
+                  'class' => 'employeePhotos'
+                ]
+              );
+              echo "<h3><span class='employee_name pb-2'>".$employees[$i]->employee_name."</span></h3>";
+              echo "<h4 class='employee_post font-weight-bold'>".$employees[$i]->employee_post."</h4>";
+            echo "</div>";
+            if(($i % 2 == 1) || ($i == count($employees) - 1)) {
+              echo "</div></div>";
+            }
+          }
+        }
+       ?>
+    </div>
+  </div>
+</div>

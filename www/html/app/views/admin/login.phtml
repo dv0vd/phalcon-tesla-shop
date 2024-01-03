@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg">
+      <h1 class='text-center'>Панель администратора</h1>
+      <div id='adminFormLoginMessage' class="alert text-center" role="alert"></div>
+      <form id='adminFormLogin' action="/admin/login" method='post'>
+        <div class="form-group">
+          <label for="adminFormLoginLogin">Логин</label>
+          <input type='text' required id='adminFormLoginLogin' name='adminFormLoginLogin' class="form-control">
+          <label for="adminFormLoginPassword">Пароль</label>
+          <input required type="password" id='adminFormLoginPassword' name='adminFormLoginPassword' class="form-control">
+          <div class="container-fluid text-center">
+            <div class="row">
+              <div class="col">
+                <button type="submit" class="btn mybtn mt-2 text-center">Отправить</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div id='formStatus' class=' invisible spinner-border text-primary mt-2 mb-2' role='status'></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
